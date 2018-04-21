@@ -1,6 +1,9 @@
 import React from 'react';
 import timezones from '../data/timezones';
 import map from 'lodash/map';
+//import axios from 'axios';
+import PropTypes from 'prop-types'
+
 
 class SignupForm extends React.Component {
   constructor(props){
@@ -8,7 +11,7 @@ super(props);
 this.state ={
   username: '',
   email:'',
-  passsword:'',
+  password:'',
   passwordConfirmation:'',
   timezone:''
 }
@@ -19,7 +22,9 @@ this.onSubmit=this.onSubmit.bind(this);
 
 onSubmit(e){
 e.preventDefault();
-console.log(this.state);
+//console.log(this.state);
+//axios.post('/api/users', {user:this.state});
+this.props.userSignupRequest(this.state);
 
 }
 
@@ -102,4 +107,12 @@ Sign up
 }
 
 }
+
+SignupForm.propTypes={
+userSignupRequest: PropTypes.func.isRequired
+
+}
+
+
+
 export default SignupForm

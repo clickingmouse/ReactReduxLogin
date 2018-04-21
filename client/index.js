@@ -3,7 +3,13 @@ import { render } from 'react-dom';
 
 import {AppContainer} from 'react-hot-loader';
 import {browserHistory, BrowserRouter as Router, Route} from 'react-router-dom';
+
+import {Provider} from 'react-redux';
+
 import routes from './routes';
+
+import thunk from 'redux-thunk';
+import {createStore, applyMiddleware} from 'redux';
 
 import AppRouter from './AppRouter'
 import App from './components/App';
@@ -28,10 +34,17 @@ render(
 /*
 render(
   <AppRouter/>
-  , document.getElementById('app'));
-*/
+  , document.getElementById('app'));*/
+const store = createStore(
+(state ={}) => state,
+applyMiddleware(thunk)
+);
+
+
+
 render(
   (
+    <Provider store = {store}>
   <Router>
     <div>
       <Route path="/" component={App} />
@@ -39,5 +52,6 @@ render(
       <Route path="/signup" component={SignupPage} />
     </div>
   </Router>
+  </Provider>
 )
   , document.getElementById('app'));
